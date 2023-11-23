@@ -10,3 +10,9 @@
     border-color: rgb(248, 166, 90);
     opacity: 1;
 }
+
+.background-svg::-webkit-slider-thumb{
+    background: url("./slider-thumb.svg");
+    background-size:cover;
+    background-repeat: no-repeat;
+}
