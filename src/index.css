@@ -16,3 +16,8 @@
     background-size:cover;
     background-repeat: no-repeat;
 }
+.background-svg::-webkit-slider-thumb:active{
+    background: url("./slider-thumb-active.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}

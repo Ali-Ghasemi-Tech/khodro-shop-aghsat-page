@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
 
-const Slider = () => {
+const Slider = ({sliderValue}) => {
   const [value, setValue] = useState(1)
 
-  let input =document.getElementById('input')
   function handelChange(e) {
     setValue(e.target.value)
+    let numberValue = Number(value) 
+    sliderValue(numberValue);
   }
   return (
     <div className='flex flex-col gap-10 justify-center w-full items-center my-11'>

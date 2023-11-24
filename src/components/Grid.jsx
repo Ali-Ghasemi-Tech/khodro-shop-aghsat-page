@@ -1,14 +1,14 @@
 import React from 'react';
 import App from '../App';
 
-const Grid = () => {
-  let number = '';
+const Grid = ({onSelectNumber}) => {
+  let number ;
 
   function handleButtonClick(event) {
     const spanElement = event.currentTarget.querySelector('.installment-number');
-    number = spanElement.textContent;
-
-    console.log(number);
+    number =spanElement.textContent ;
+    const selectedNumber = Number(number);
+    onSelectNumber(selectedNumber);
   }
 
   React.useEffect(() => {
@@ -22,6 +22,8 @@ const Grid = () => {
       event.currentTarget.classList.add('clicked');
     }
 
+
+
     installmentButtons.forEach(button => {
       button.addEventListener('click', handleButtonClick);
       button.addEventListener('click', handleClick);
@@ -33,9 +35,10 @@ const Grid = () => {
         button.removeEventListener('click', handleClick);
       });
     };
+    
   }, []);
 
-  <App installmentDuration={number}/>
+  
   return (
     <div className="grid grid-rows-2 grid-cols-4 rtl gap-5">
       <div className="box-border rounded-xl border-2 border-gray-300  border-solid p-[10px] text-center installment-button opacity-40 ">

@@ -1,15 +1,49 @@
+import { useEffect, useState } from "react";
 import Grid from "./components/Grid";
 import Slider from "./components/Slider";
 
-function App({installmentDuration}) {
+function App() {
+
+  const [selectedNumber , setSelectedNumber] = useState(null);
+  const [sliderValue , setSliderValue] = useState(1);
+  const [prePayment , setPrePayment] = useState(sliderValue);
+  const [monthlyPayment , setMonthlyPayment] = useState(sliderValue *2);
+
+  console.log(typeof(selectedNumber))
+  console.log(typeof(sliderValue));
+  
+  function handelSelectedNumber(number) {
+    setSelectedNumber(number);
+    setPrePayment(  number/2 +sliderValue);
+    setMonthlyPayment( number / 2 +sliderValue)
+  }
+
+  function handleSliderValue(value){
+    setSliderValue(value);
+    setPrePayment( selectedNumber/2 + sliderValue);
+    setMonthlyPayment(selectedNumber / 2 + sliderValue);
+  } 
+
+
   return (
-    <div className="flex flex-col justify-center w-[80%] h-auto mx-auto bg-gray-100">
-      <div className="flex flex-col gap-3 w-[80%] h-full pt-3">
+    <div className="flex flex-col items-center justify-center w-[80%] h-auto mx-auto bg-gray-100">
+      <div className="flex flex-col gap-3 w-[50%] h-full pt-3">
         <span className="rtl">مدت بازپرداخت مورد نظر خود را انتخاب کنید</span>
-       <Grid/>
+       <Grid onSelectNumber={handelSelectedNumber} />
       </div>
-      <div>
-        <Slider/>
+      <div className="flex flex-row-reverse w-full justify-center h-16 mt-10">
+        <div className="flex flex-col justify-center items-center gap-2 border-l-2 border-gray-400  px-8">
+          <span>پیش پرداخت</span>
+          {prePayment}
+        </div>
+        <div className="flex flex-col px-8 justify-center items-center gap-2">
+          <span>اقساط ماهیانه</span>
+          {monthlyPayment}
+        </div>
+      </div>
+      
+      <div className="w-full">
+        <Slider sliderValue={handleSliderValue} />
       </div>
     </div>
   );
