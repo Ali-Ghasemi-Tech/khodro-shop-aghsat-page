@@ -6,6 +6,10 @@
     direction: rtl;
 }
 
+.ltr{
+    direction: ltr;
+}
+
 .clicked{
     border-color: rgb(248, 166, 90);
     opacity: 1;

@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import Grid from "./components/Grid";
 import Slider from "./components/Slider";
+import InfoCards from "./components/InfoCards";
 
 function App() {
+
+  // style
+  const cardBgColor = "#ffe396";
 
   const [selectedNumber , setSelectedNumber] = useState(null);
   const [sliderValue , setSliderValue] = useState(1);
   const [prePayment , setPrePayment] = useState(sliderValue);
   const [monthlyPayment , setMonthlyPayment] = useState(sliderValue *2);
+  // i need the check formula
+  const [checkNumber , setCheckNumber] = useState();
+  const [finalPrice , setFinalPrice] = useState();
 
   console.log(typeof(selectedNumber))
   console.log(typeof(sliderValue));
@@ -44,6 +51,14 @@ function App() {
       
       <div className="w-full">
         <Slider sliderValue={handleSliderValue} />
+      </div>
+
+      <div className="flex flex-col border border-gray-400 rounded-xl w-[50%] h-auto">
+        <InfoCards valueName={"تومان"} valueNumber={prePayment} description={":پیش پرداخت"} />
+        <InfoCards valueName={"ماهه"} valueNumber={selectedNumber} description={":دوره بازپرداخت"} color={{backgroundColor: cardBgColor}}/>
+        <InfoCards valueName={"تومان"} valueNumber={monthlyPayment} description={":اقساط ماهیانه"}/>
+        <InfoCards valueName={"برگ"} valueNumber={selectedNumber} description={":تعداد چک مورد نیاز"} color={{backgroundColor: cardBgColor}}/>
+        <InfoCards valueName={"تومان"} valueNumber={sliderValue} description={":بازپرداخت نهایی"}/>
       </div>
     </div>
   );
