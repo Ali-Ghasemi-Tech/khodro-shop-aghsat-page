@@ -33,7 +33,7 @@ function App() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center w-[80%] h-auto mx-auto bg-gray-100">
+    <div className="flex flex-col items-center justify-center w-[80%] h-auto mx-auto bg-gray-100 py-10">
       <div className="flex flex-col gap-3 w-[50%] h-full pt-3">
         <span className="rtl">مدت بازپرداخت مورد نظر خود را انتخاب کنید</span>
        <Grid onSelectNumber={handelSelectedNumber} />
