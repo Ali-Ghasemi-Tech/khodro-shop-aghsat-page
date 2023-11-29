@@ -5,60 +5,112 @@ import InfoCards from "./components/InfoCards";
 
 function App() {
 
+ 
+
   // style
   const cardBgColor = "#ffe396";
 
-  const [selectedNumber , setSelectedNumber] = useState(null);
-  const [sliderValue , setSliderValue] = useState(1);
-  const [prePayment , setPrePayment] = useState(sliderValue);
-  const [monthlyPayment , setMonthlyPayment] = useState(sliderValue *2);
-  // i need the check formula
-  const [checkNumber , setCheckNumber] = useState();
+  const [selectedNumber , setSelectedNumber] = useState(12);
+  const [sliderValue , setSliderValue] = useState(1000000);
+  const [prePayment , setPrePayment] = useState();
+  const [monthlyPayment , setMonthlyPayment] = useState(sliderValue);
   const [finalPrice , setFinalPrice] = useState();
 
-  console.log(typeof(selectedNumber))
-  console.log(typeof(sliderValue));
+  const [result , setResult] = useState();
+
+ 
+  window.onload = function() {
+    sendSliderValueToPHP(sliderValue)
+  }
+  
+
+  async function sendSliderValueToPHP(value) {
+    try {
+      const response = await fetch('http://localhost:8000/calculate.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ input1: value }), // Send the sliderValue as input1
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      setResult(await response.json()); 
+        handleResult(result);      
+
+
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  }
+
+
+  function handleResult(result){
+    if (selectedNumber === 12){
+      setPrePayment(parseInt(result.out_1).toLocaleString('en-US'));
+      setMonthlyPayment(parseInt(result.out_2).toLocaleString('en-US'));
+      setFinalPrice(parseInt(result.out_3).toLocaleString('en-US'));
+    }
+    else if(selectedNumber === 18){
+      setPrePayment(parseInt(result.out_4).toLocaleString('en-US'));
+      setMonthlyPayment(parseInt(result.out_5).toLocaleString('en-US'));
+      setFinalPrice(parseInt(result.out_6).toLocaleString('en-US'));
+    }
+    else if(selectedNumber === 24){
+      setPrePayment(parseInt(result.out_7).toLocaleString('en-US'));
+      setMonthlyPayment(parseInt(result.out_8).toLocaleString('en-US'));
+      setFinalPrice(parseInt(result.out_9).toLocaleString('en-US'));
+    }
+    else if (selectedNumber === 36){
+      setPrePayment(parseInt(result.out_10).toLocaleString('en-US'));
+      setMonthlyPayment(parseInt(result.out_11).toLocaleString('en-US'));
+      setFinalPrice(parseInt(result.out_12).toLocaleString('en-US'));
+    }
+  }
   
   function handelSelectedNumber(number) {
     setSelectedNumber(number);
-    setPrePayment(  number/2 +sliderValue);
-    setMonthlyPayment( number / 2 +sliderValue)
   }
 
   function handleSliderValue(value){
-    setSliderValue(value);
-    setPrePayment( selectedNumber/2 + sliderValue);
-    setMonthlyPayment(selectedNumber / 2 + sliderValue);
+    const number = Number(value);
+    const localValue = number.toLocaleString('en-US');
+    setSliderValue(localValue);
+    sendSliderValueToPHP(number);
   } 
 
+  useEffect(() => {
+    if (selectedNumber && selectedNumber !== 12) {
+      handleResult(result);
+    }
+  }, [selectedNumber]);
 
   return (
     <div className="flex flex-col items-center justify-center w-[80%] h-auto mx-auto bg-gray-100 py-10">
       <div className="flex flex-col gap-3 w-[50%] h-full pt-3">
         <span className="rtl">مدت بازپرداخت مورد نظر خود را انتخاب کنید</span>
-       <Grid onSelectNumber={handelSelectedNumber} />
+       <Grid onSelectNumber={handelSelectedNumber} change={selectedNumber}/>
       </div>
-      <div className="flex flex-row-reverse w-full justify-center h-16 mt-10">
-        <div className="flex flex-col justify-center items-center gap-2 border-l-2 border-gray-400  px-8">
-          <span>پیش پرداخت</span>
-          {prePayment}
-        </div>
-        <div className="flex flex-col px-8 justify-center items-center gap-2">
-          <span>اقساط ماهیانه</span>
-          {monthlyPayment}
+      <div className="flex flex-row-reverse w-full justify-center h-16 ">
+        <div className="flex flex-col justify-center items-center px-8">
+          <span>قیمت</span>
+          {sliderValue}
         </div>
       </div>
       
-      <div className="w-full">
+      <div className="w-full flex flex-col justify-center items-center pt-10">
+      
         <Slider sliderValue={handleSliderValue} />
       </div>
 
       <div className="flex flex-col border border-gray-400 rounded-xl w-[50%] h-auto">
-        <InfoCards valueName={"تومان"} valueNumber={prePayment} description={":پیش پرداخت"} />
+        <InfoCards valueName={"تومان"} valueNumber={prePayment} description={":مبلغ پیش پرداخت"} />
         <InfoCards valueName={"ماهه"} valueNumber={selectedNumber} description={":دوره بازپرداخت"} color={{backgroundColor: cardBgColor}}/>
         <InfoCards valueName={"تومان"} valueNumber={monthlyPayment} description={":اقساط ماهیانه"}/>
-        <InfoCards valueName={"برگ"} valueNumber={selectedNumber} description={":تعداد چک مورد نیاز"} color={{backgroundColor: cardBgColor}}/>
-        <InfoCards valueName={"تومان"} valueNumber={sliderValue} description={":بازپرداخت نهایی"}/>
+        <InfoCards valueName={"تومان"} valueNumber={finalPrice} description={":مجموع اقساط"} color={{backgroundColor: cardBgColor}}/>
       </div>
     </div>
   );
