@@ -17,11 +17,20 @@
 
 .background-svg::-webkit-slider-thumb{
     background: url("./slider-thumb.svg");
-    background-size:cover;
+    background-size:contain;
     background-repeat: no-repeat;
+    width: 9vw;
+    height: 9vw;
+
 }
 .background-svg::-webkit-slider-thumb:active{
     background: url("./slider-thumb-active.svg");
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
+    width: 9vw;
+    height: 9vw;
+}
+
+.title{
+    font-size: clamp(0.2em , 1vw , 1.25em);
 }
