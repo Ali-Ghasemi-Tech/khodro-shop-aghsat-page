@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/khodro-shop-aghsat-page/static/css/main.33167f0e.css",
-    "main.js": "/khodro-shop-aghsat-page/static/js/main.f6ecad11.js",
+    "main.css": "/khodro-shop-aghsat-page/static/css/main.4f6ed296.css",
+    "main.js": "/khodro-shop-aghsat-page/static/js/main.2e166ec8.js",
     "static/media/slider-thumb.svg": "/khodro-shop-aghsat-page/static/media/slider-thumb.29951a79ab5eca814e7e.svg",
     "static/media/slider-thumb-active.svg": "/khodro-shop-aghsat-page/static/media/slider-thumb-active.2693d3db7435a19176a4.svg",
     "index.html": "/khodro-shop-aghsat-page/index.html",
-    "main.33167f0e.css.map": "/khodro-shop-aghsat-page/static/css/main.33167f0e.css.map",
-    "main.f6ecad11.js.map": "/khodro-shop-aghsat-page/static/js/main.f6ecad11.js.map"
+    "main.4f6ed296.css.map": "/khodro-shop-aghsat-page/static/css/main.4f6ed296.css.map",
+    "main.2e166ec8.js.map": "/khodro-shop-aghsat-page/static/js/main.2e166ec8.js.map"
   },
   "entrypoints": [
-    "static/css/main.33167f0e.css",
-    "static/js/main.f6ecad11.js"
+    "static/css/main.4f6ed296.css",
+    "static/js/main.2e166ec8.js"
   ]
 }
